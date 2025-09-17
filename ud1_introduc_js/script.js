@@ -22,6 +22,13 @@ function pintar_ruta_V2(){
 
 // Ejercicio 4-1
 function muestra_potencia(){
-    var num = 2*Math.pow(10,9);
+    var num = 2*Math.pow(10,-9);
+    console.log("El valor de 2*10^9 es: " + num);
 } 
 
+// Ejercicio 5-1
+function distintas_bases(num){
+    //Transforma num a binario
+    var numDecimal = num.toString(2);
+    console.log("El número " + num + " en binario es: " + numDecimal);
+}
