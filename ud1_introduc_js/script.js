@@ -163,3 +163,90 @@ function contar_cifras(){
     }
     console.log("El número de cifras es: " + contador);
 }
+
+//Ejercicio 1-18
+/* function calcula_edad(){
+    let edad = document.getElementById("edad").value;
+    switch(true){
+        case edad >= 0 && edad <= 16:
+            console.log("Eres un niño.");
+            break;
+        case edad > 16 && edad <= 25:
+            console.log("Eres un joven.");
+            break;
+        case edad > 25 && edad <= 60:
+            console.log("Eres un adulto.");
+            break;
+        case edad > 60:
+            console.log("Eres senior.");
+            break;
+        default: 
+            console.error("Edad introducida no válida.");
+    }
+} */
+
+function calcula_edad(){
+    let edad = document.getElementById("edad").value;
+    switch(true){
+        case edad >= 0 && edad <= 16:
+            pintar_mensaje("Eres un niño", true);
+            break;
+        case edad > 16 && edad <= 25:
+            pintar_mensaje("Eres un joven", true);
+            break;
+        case edad > 25 && edad <= 60:
+            pintar_mensaje("Eres un adulto", true);
+            break;
+        case edad > 60:
+            pintar_mensaje("Eres senior", true);
+            break;
+        default: 
+            pintar_mensaje("Error! Edad introducida no valida", false);
+    }
+}
+
+function pintar_mensaje(mensaje, isOK){
+
+    let aviso = document.getElementById("aviso");
+    aviso.textContent = mensaje;
+
+    if(isOK){
+        aviso.style.color = "green";
+    }else{
+        aviso.style.color = "red";
+    }
+}
+
+// Ejercicio 1-19
+function acierta_aleatorio(){
+    let aleatorio = Math.trunc((Math.random() * 10) + 1);
+    let intento = 0;
+
+    alert("Se ha calculado un número aleatorio. ¿Eres capaz de acertarlo?");
+
+    do{
+        intento++;
+        var valor_intento = Number(prompt("Intento " + intento));
+    }while(valor_intento != aleatorio);
+
+    console.log("Enhorabuena! Has acertado. El número secreto era el " + aleatorio);
+    console.log ("Has necesitado " + intento + " intentos.");
+
+}
+
+//Ejercicio 1-20
+function multiplos(){
+    let numero = Number(prompt("Introduce un número: "));
+    let multiplos = 0;
+    const max = 100;
+
+    for(let i = numero+1; i < max; i++){
+        if(i%numero == 0){
+            multiplos++;
+            console.log("Multiplo encontrado " + i);
+        }
+    }
+
+    console.log("El número " + numero + " tiene " + multiplos + " multiplos.");
+
+}
