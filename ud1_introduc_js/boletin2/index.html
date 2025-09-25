@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boletin 2</title>
+    <script src="script2.js" defer></script>
 </head>
+
 <body>
     <h1>Boletín 2</h1>
     <hr />
     <h2> UD1. Introducción a Javascript</h2>
-    <h3>Ejercicio 0 (Inventado por el profesor)</h3>
-    <p>Calcula la secuencia de fibonacci atendiendo a la formula:</p>
-    
+    <div class="ejercicio">
+        <h3>Ejercicio 0 (Inventado por el profesor)</h3>
+        <p>Calcula la secuencia de fibonacci atendiendo a la formula:</p>
+        <ul>
+            <li>fib(n) = fib(n-1) + fib(n-2)</li>
+            <li>fib(0) = 0</li>
+            <li>fib(1) = 1</li>
+        </ul>
+        <button onclick="calcula_fibonacci()">Calcular</button>
+    </div>
+    <div class="ejercicio">
+        <h3>Ejercicio 1</h3>
+        <p>Calcula el factorial de un número (n!).</p>
+        <ul>
+            <li>fact(n) = n * fact(n-1)</li>
+            <li>fact(0) = 1</li>
+        </ul>
+        <button onclick="calcula_factorial(true)">Calcular factorial recursivo</button>
+        <button onclick="calcula_factorial(false)">Calcular factorial tradicional</button>
+    </div>
+    <div class="ejercicio">
+        <h3>Ejercicio 2</h3>
+        <p>Desarrolla un programa que le pida al usuario una cantidad de días y el programa
+            deberá devolver cuantas horas minutos y segundas son.</p>
+        <button onclick="transformar_dias_horas()">Calcular tiempo</button>
+    </div>
+    <div class="ejercicio">
+        <h3>Ejercicio 3</h3>
+        <p>Realiza un programa capaz de resolver una ecuación de segundo grado. Para ello, 
+            se solicitará el valor de los coeficientes a, b y c y devolverá su solución.
+            Teniendo encuenta la formula:  
+        </p>
+        <img width = "100em"src="https://ingenieriabasica.es/wp-content/uploads/2019/08/ecuacion-de-segundo-grado-1024x576.jpg" alt="Ecuación de segundo grado"><br>
+        <button onclick="resolver_ecuacion_segundo_grado()">Calcular solución</button>
+    </div>
 </body>
+
 </html>
