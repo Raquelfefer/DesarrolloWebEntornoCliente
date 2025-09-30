@@ -92,4 +92,84 @@ function resolver_ecuacion_segundo_grado(){
     }
     
 }
+
+// Ejercicio 4
+function calcular_letra_dni(){
+    let dni = Number(prompt("Introduce el número de tu DNI (sin letra):"));
+    if(dni.length !== 8 || isNaN(dni)){
+        console.log("El número introducido no es válido.");
+        return;
+    }
+    const letras_dni = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+    let letra = letras_dni[dni%23];
+    console.log("La letra del DNI " + dni + " es: " + letra);
+}
+
+// Ejercicio 5
+function menu(){
+    let opcion = 0;
+    while(opcion !== 4){
+        opcion = Number(prompt("Elige una opción: \n1.Calcular el área de un triángulo \n2. Calcular el área de un rectángulo \n3. calcular el área de un círculo \n4. Salir"));
+        switch(opcion){
+            case 1:
+                let base_triangulo = Number(prompt("Introduce la base del triángulo: "));
+                let altura_triangulo = Number(prompt("Introduce la altura del triángulo: "));
+                let area_triangulo = (base_triangulo * altura_triangulo)/ 2;
+                console.log("El área del triángulo es: " + area_triangulo);
+                break;
+            case 2:
+                let base_rectangulo = Number(prompt("Introduce la base del rectángulo: "));
+                let altura_rectangulo= Number(prompt("Introduce la altura del rectángulo: "));
+                let area_rectangulo = base_rectangulo * altura_rectangulo;
+                console.log("El área del rectángulo es: " + area_rectangulo);
+                break;
+            case 3:
+                let radio_circulo = Number(prompt("Intoduce el radio del círculo: "));
+                let area_circulo = Math.PI * Math.pow(radio_circulo, 2);
+                console.log("El área del círculo es: " + area_circulo.toFixed(2));
+                break;
+            case 4:
+                console.log("Saliendo del programa...");
+                break;
+            default:
+                console.log("Opción no válida.");
+                break;
+        }
+    }
+}
+
+// Ejercicio6
+function bucle_for(){
+    console.log("Números impares del 1 al 100 que no son múltiplos de 3 ni de 7:");
+    for(let i = 1; i <= 100; i++){
+        if(i % 2 !== 0 && i % 3!== 0 && i % 7 !==0){
+            console.log(i);
+        }
+    }
+}
+
+function bucle_while(){
+    let numero = 1;
+    console.log("Números impares del 1 al 100 que no son múltiplos de 3 ni de 7:");
+    while (numero <= 100){
+        if(numero % 2 !== 0 && numero % 3!== 0 && numero % 7 !==0){
+            console.log(numero);
+        }
+        numero++;
+    }
+}
+
+function bucle_do_while(){
+    let numero = 1;
+    console.log("Números impares del 1 al 100 que no son múltiplos de 3 ni de 7:");
+    do {
+        if(numero % 2 !== 0 && numero % 3!== 0 && numero % 7 !==0){
+            console.log(numero);
+        }
+        numero++;
+    } while (numero <= 100);
+}
+
+
+
     
