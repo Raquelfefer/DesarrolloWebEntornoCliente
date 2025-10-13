@@ -19,7 +19,7 @@ function password(){
 
     for(let i = 0; i < longitud; i++){
         let indice_alt = Math.floor(Math.random()*caracteres_disponibles.length);
-        password += caracteres_disponibles.charArt(indice_alt);
+        password += caracteres_disponibles.charAt(indice_alt);
     }
 
     console.log("La pass generada es: " + password);
