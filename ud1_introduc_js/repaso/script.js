@@ -396,6 +396,59 @@ function ejercicio31(numero_binario){
     console.log(decimal);
 }
 
-function ejercicio32(){
+function adivina_numero(){
+    let numero_aleatorio = Math.floor(Math.random()*11);
+    let numero_jugador;
+    let intentos = 0;
 
+    do{
+        numero_jugador = Number(prompt("Intenta adivinar el número (0-10)"));
+        intentos++;
+    }while(numero_aleatorio !== numero_jugador && intentos < 20);
+
+    if(intentos >= 20){
+        console.log("Has llegado a 20 intentos. Has perdido!!");
+    }else{
+        console.log("Has ganado!! El número era el: " + numero_aleatorio + " y lo has conseguido en " + intentos + " intentos.");
+    }
 }
+
+function cuenta_atras(n){
+    for(let i = n; i >= 0; i--){
+        if(i > 0){
+            console.log(i);
+        }else{
+            console.log("DESPEGUE");
+        }
+    }
+}
+
+function descuento(edad,premium,compra_ult_mes,gasto_total){
+    let codigo = "PRIMAVERA15";
+    if(edad >= 18 && (premium || (compra_ult_mes >= 5 && gasto_total >= 200))){
+        console.log("Enhorabuena!! Cumple con los requisitos. Su código de descuento es: " + codigo);
+    }else{
+        console.log("Lo sentimos. No cumples los requisitos para acceder al descuento.");
+    }
+}
+
+function informacion(){
+    let frase = prompt("Introduce una frase:");
+    let num_caracteres = frase.length;
+    let palabras = 1;
+    let letra_A = 0;
+    let acronimo = "";
+    
+    for(let i = 0; i < frase.length; i++){
+        let caracter = frase[i];
+        if(caracter === " "){
+            palabras++;
+        }else if(caracter.toUpperCase() === "A"){
+            letra_A++;
+        }
+    }
+
+
+    console.log("La frase es: " + frase + "\nEl número de caracteres es: " + num_caracteres + "\nEl número de palabras es: " + palabras + "\nEl número de letras A es: " + letra_A);
+}
+
