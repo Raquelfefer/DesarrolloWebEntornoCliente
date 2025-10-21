@@ -31,9 +31,26 @@
             <form>
                 <label for="email">Email</label>
                 <input id="email" type="text">
+                <p id="ok" style="color:green"></p>
+                <p id="error" style="color:red"></p>
+            </form>
+            <button onclick="valida_form()">Validar formulario</button>   
+        </section>
+        <section>
+            <h2>Ejercicio 3</h2>
+            <p>
+                Escribe un programa que le pida al usuario qué porcentaje quiere aplicar 
+                para redimensionar la ventana. El programa debe pedir confirmación y solo 
+                en caso de que se acepte, se redimensionará la ventana al porcentaje indicado.
+                 Es necesario igualmente ir mostrando por consola que va ocurriendo en 
+                 cada momento. ¿Se puede hacer esto? ¿Por qué crees que puede ocurrir? 
+            </p>
+            <form>
+                <label for="porcentaje">Porcentaje</label>
+                <input id="resultado" type="number">
                 
             </form>
-            <button onclick="ejercicio2()">Ejercicio2</button>  
+            <button type="button" onclick="ejercicio3()">Redimensionar</button> 
         </section>
     </body>
 </html>

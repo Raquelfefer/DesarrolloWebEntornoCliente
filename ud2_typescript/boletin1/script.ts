@@ -10,18 +10,53 @@ function ejercicio1(): void{
 
 //Ejercicio2
 function ejercicio2(){
-    //let expReg: RegExp = /lo_que_sea/
-    let expReg: RegExp = new RegExp("lo_que_sea");
-    let mensajeOK = document.createElement('span');
-    //Primero nos aseguramos que no es nulo (porque no puedo almacenar un nulo en un HTMLInputElement)
-    if(document.getElementById("email") != null){
-        let email: HTMLInputElement  = document.getElementById("email") as HTMLInputElement;
-        if(expReg.test(email.value)){
-            mensajeOK.textContent = "Email correcto";
-        }else{
-            mensajeOK.textContent = "Email incorrecto";
-        }
+    const regExp = new RegExp("[^\s@]+@+[^\s@]+\.+[^\s@]+$");
+    if(regExp.test($inputValue("email"))){
+        $writeNode("ok","El email introducido es válido.");
+    }else{
+        $writeNode("error", "El email introducido no cumple la validación.");
+    }
+}
+
+//Ejercicio3
+function ejercicio3(){
+    const form = document.getElementById("resultado") as HTMLInputElement;
+    const porcentaje = parseFloat(form.value);
+    if(isNaN(porcentaje) || porcentaje <= 0){
+        console.log("Porcentaje no válido.");
+        return;
     }
     
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+//Helpers (comunes para todo el boletín)
+function $inputValue(id: string) : string{
+    const input = document.getElementById(id)! as HTMLInputElement;
+    var result = "";
+
+    if(input){
+        result = input.value;
+    }
+    return result;
+}
+
+function $writeNode(id: string, msg: string): void{
+    const node = document.getElementById(id) as HTMLElement;
+
+    if(node){
+        node.textContent = msg;
+    }
+}
+    

@@ -9,17 +9,35 @@ function ejercicio1() {
 }
 //Ejercicio2
 function ejercicio2() {
-    //let expReg: RegExp = /lo_que_sea/
-    var expReg = new RegExp("lo_que_sea");
-    var mensajeOK = document.createElement('span');
-    //Primero nos aseguramos que no es nulo (porque no puedo almacenar un nulo en un HTMLInputElement)
-    if (document.getElementById("email") != null) {
-        var email = document.getElementById("email");
-        if (expReg.test(email.value)) {
-            mensajeOK.textContent = "Email correcto";
-        }
-        else {
-            mensajeOK.textContent = "Email incorrecto";
-        }
+    var regExp = new RegExp("[^\s@]+@+[^\s@]+\.+[^\s@]+$");
+    if (regExp.test($inputValue("email"))) {
+        $writeNode("ok", "El email introducido es válido.");
+    }
+    else {
+        $writeNode("error", "El email introducido no cumple la validación.");
+    }
+}
+//Ejercicio3
+function ejercicio3() {
+    var form = document.getElementById("resultado");
+    var porcentaje = parseFloat(form.value);
+    if (isNaN(porcentaje) || porcentaje <= 0) {
+        console.log("Porcentaje no válido.");
+        return;
+    }
+}
+//Helpers (comunes para todo el boletín)
+function $inputValue(id) {
+    var input = document.getElementById(id);
+    var result = "";
+    if (input) {
+        result = input.value;
+    }
+    return result;
+}
+function $writeNode(id, msg) {
+    var node = document.getElementById(id);
+    if (node) {
+        node.textContent = msg;
     }
 }
