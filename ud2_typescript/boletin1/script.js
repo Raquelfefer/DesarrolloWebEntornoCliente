@@ -19,13 +19,21 @@ function ejercicio2() {
 }
 //Ejercicio3
 function ejercicio3() {
-    var form = document.getElementById("resultado");
-    var porcentaje = parseFloat(form.value);
-    if (isNaN(porcentaje) || porcentaje <= 0) {
-        console.log("Porcentaje no válido.");
-        return;
+    var ventanaNueva = window.open("https:www.google.es", "nuevaVentana");
+}
+//Ejercicio4-5
+function ejercicio4() {
+    var regexp = new RegExp("^https:\/\/");
+    var url = $inputValue("url");
+    if (regexp.test(url)) {
+        window.location.href = url;
+    }
+    else {
+        $writeNode("error2", "Introduzca una URL válida.");
+        setTimeout(function () { return $writeNode("error2", ""); }, 5000);
     }
 }
+//Ejercicio6
 //Helpers (comunes para todo el boletín)
 function $inputValue(id) {
     var input = document.getElementById(id);

@@ -20,14 +20,23 @@ function ejercicio2(){
 
 //Ejercicio3
 function ejercicio3(){
-    const form = document.getElementById("resultado") as HTMLInputElement;
-    const porcentaje = parseFloat(form.value);
-    if(isNaN(porcentaje) || porcentaje <= 0){
-        console.log("Porcentaje no válido.");
-        return;
-    }
-    
+    let ventanaNueva = window.open("https:www.google.es", "nuevaVentana");
 }
+
+//Ejercicio4-5
+function ejercicio4(){
+    const regexp = new RegExp("^https:\/\/");
+    const url = $inputValue("url");
+    if(regexp.test(url)){
+        window.location.href = url;
+    }else{
+        $writeNode("error2", "Introduzca una URL válida.");
+        setTimeout(() => $writeNode("error2",""), 5000);
+    }   
+}
+
+//Ejercicio6
+
 
 
 
