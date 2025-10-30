@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="script.js" defer></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- Ejercicio 1 -->
+        <h1 id="titulo">Hola mundo</h1>
+        <button onclick="cambiar_titulo()">Cambiar titulo</button>
+        <!-- Ejercicio 2 -->
+        <h1>Modo oscuro</h1>
+        <button onclick="cambiar_modo()">Cambiar modo</button>
+        <!-- Ejercicio 3 -->
+        <h1>Analiza la edad</h1>
+        <form>
+            <label for="edad">Introduce tu edad</label>
+            <input type="number" id="edad" placeholder="34"/>
+        </form>
+        <ol id="resultado"></ol>
+        <button onclick="analiza_edad()">Enviar edad</button>
+        <!-- Ejercicio 4 -->
+        <h1>Mini app</h1>
+        <button onclick="mini_app()">Comenzar</button><br><br>
+        <select id="colores" onchange="cambiar_color()">
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="blue">Azul</option>
+            <option value="yellow">Amarillo</option>
+        </select>
+        <p id="saludo"></p>
+        <!-- Ejercicio 1 -->
+        <h1>Menú elementos del BOM</h1>
+        <button onclick="menu_informacion()">Mostrar información</button>
+        <ol id="menu_BOM"></ol>
+        <!-- Ejercicio 2 -->
+        <h1>Mini navegador</h1>
+            <label for="url">Introduce una url</label>
+            <input id="url" type=text>
+            <button onclick="navegar()">Navegar</button>
+            <button onclick="retroceder()">Retroceder</button>
+            <button onclick="avanzar()">Avanzar</button>
+            <button onclick="recargar()">Recargar</button>
+
+            <iframe id="navegador" width="600" height="400"></iframe>
+    </body>
+</html>
