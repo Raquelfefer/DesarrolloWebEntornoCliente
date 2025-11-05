@@ -1,3 +1,7 @@
+window.onload = function () {
+    cuadricula_alumno();
+    crear_cookie();
+};
 //MODIFICAR EL DOM
 //Ejercicio 1
 function cambiar_titulo() {
@@ -113,16 +117,53 @@ function menu_informacion() {
     nodoMenu.appendChild(size);
 }
 //Ejercicio 2
-var iframe = document.getElementById("navegador");
-function navegar() {
-    var nodoURL = document.getElementById("url");
-    var url = nodoURL.value;
-    iframe.src = url;
+//LECTURA Y RECORRIDO DE NODOS
+//Ejercicio 1
+//Ejercicio 2
+function cuadricula_alumno() {
+    var container = document.getElementById("contenedor");
+    var alumnos = ["Gerardo", "María", "Bernardo"];
+    for (var i = 0; i < alumnos.length; i++) {
+        container.appendChild(crea_ficha(alumnos[i]));
+    }
+    //Foreach 
+    //alumnos.forEach(alumno => container.appendChild(crea_ficha(alumno)));
 }
-function retrocerder() {
+function crea_ficha(alumno) {
+    var ficha = document.createElement("div");
+    ficha.textContent = alumno;
+    ficha.style.backgroundColor = color_aleatorio();
+    return ficha;
 }
-function avanzar() {
+function color_aleatorio() {
+    var pastelColors = ["#FFD1DC", "#B5EAD7", "#C7CEEA", "#FFDAC1", "#E2F0CB", "#FBE7C6", "#E0BBE4", "#FFB7B2", "#A2D2FF", "#AFE9DD",];
+    var idxAleat = Math.floor(Math.random() * pastelColors.length) + 1;
+    return pastelColors[idxAleat];
 }
-function recargar() {
-    location.reload();
+//LECTURA/ESCRITURA SOBRE COOKIES
+//Ejercicio 1
+function crear_cookie() {
+    //Escribir cookies
+    var usuario = "user=Raquel";
+    var cookieCurrency = "currency=EUR";
+    document.cookie = "";
+    document.cookie = usuario;
+    document.cookie = cookieCurrency;
+    //Leer cookies
+    var arrayCookies = document.cookie.split("; ");
+    arrayCookies.forEach(function (cookie) { return console.log("Cookie: " + cookie); });
+    var cookieAbuscar = window.prompt("¿Que cookie quieres buscar?");
+    var valor = "";
+    //Leemos una en concreto(lang)
+    for (var i = 0; i < arrayCookies.length; i++) {
+        var claveValor = arrayCookies[i].split("=");
+        if (claveValor[0] == cookieAbuscar) {
+            valor = claveValor[1];
+        }
+    }
+    console.log("El valor de la cookie " + cookieAbuscar + " es " + valor);
+    //Eliminar automaticamente con fecha de expiracion
+    var date = new Date();
+    date.setSeconds(date.getSeconds() + 30000);
 }
+//Borrar una cookie
