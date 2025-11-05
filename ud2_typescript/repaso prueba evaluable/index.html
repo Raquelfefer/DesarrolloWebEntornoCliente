@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicios repaso Typescript</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <!--Ejercicio 1-->
+    <h1 id="titulo">Hola Mundo</h1>
+    <button onclick="cambiar_titulo()">Cambiar título</button>
+
+    <!--Ejercicio 2-->
+    <h1>Modo oscuro/Modo claro</h1>
+    <button onclick="cambiar_modo()">Cambiar modo</button>
+
+    <!--Ejercicio 3-->
+    <h1>Formulario edad</h1>
+    <form>
+        <label>Introduce tu edad:</label>
+        <input type="number" id="edad"/>
+    </form>
+    <ol id="lista"></ol>
+    <button onclick="calcular_edad()">Enviar edad</button>
+    
+    <!-- Ejercicio 4-->
+    <h1>Mini app</h1>
+    <p id="saludo"></p>
+    <select id="color" onchange="cambiar_color()">
+        <option value="green">Verde</option>
+        <option value="red">Rojo</option>
+        <option value="blue">Azul</option>
+        <option value="pink">Rosa</option>
+    </select>
+    <button onclick="mini_app()">Iniciar App</button>
+
+    <!--Ejercicio 1-->
+    <h1>Información del navegador</h1>
+    <p>a. El idioma del navegador</p>
+    <p>b. El nombre del navegador</p>
+    <p>c. Si tiene o no cookies habilitadas</p>
+    <p>d. El tamaño de alto y ancho de la pantalla</p>
+    <input type="text" id="opcion"/>
+    <button onclick="informacion_nav()">Iniciar</button>
+    <p id="informacion"></p>
+
+    <!--Ejercicio 2-->
+    <h1>Mini navegador</h1>
+    <input type="text" id="url" placeholder="https://ww.url.com">
+    <button onclick="navegar()">Navegar</button>
+    <button onclick="window.history.go(1)">Delante</button>
+    <button onclick="window.history.go(-1)">Atrás</button>
+    <button onclick="window.location.reload">Recargar</button><br>
+    <iframe id="ventana" src="" width="600px" height="250px"></iframe>
+
+    <!--Ejercico 3-->
+    <h1>Reloj digital</h1>
+    <p id="reloj"></p>
+
+    <!-- Ejercicio 1-->
+    <h1>Lectura y recorrido de nodos</h1>
+    <h2>Lista de la compra</h2>
+    <ol id="shopping-list">
+        <li>Huevos</li>
+        <li>Leche</li>
+        <li>Pan de molde</li>
+        <li>Mantequilla</li>
+    </ol>
+    <button onclick="num_elements()">Numero de nodos</button>
+    <button onclick="show_firstLast_element()">Texto primer y ultimo elemento</button>
+    <button onclick="duplicate_element()">Duplicar elemento</button>
+    <button onclick="update_element()">Modificar elemento</button>
+    <button onclick="show_all_elements()">Mostrar todos los elementos</button>
+    <button onclick="add_element()">Añadir elemento</button>
+    <button onclick="delete_element()">Borrar elemento</button>
+    <button onclick="ordenar_elements()">Ordenar elementos alfabeticamente</button>
+    <p id="resultado_nodo"></p>
+
+    <!--Ejercicio 2-->
+    <h1>Array de alumnos</h1>
+    <div id="cuadricula"></div>
+    <button onclick="cuadricula_alumnos()">Añadir alumnos</button>
+</body>
+</html>
