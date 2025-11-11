@@ -71,20 +71,26 @@ function show_edad(){
 
 function almacenar_cookies(){
     let inputNombre: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
-    let cookienombre: string = inputNombre.value;
+    let cookieNombre: string = inputNombre.value;
+    document.cookie = "nombre=" + cookieNombre;
 
     let inputApellidos: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
     let cookieApellidos: string = inputApellidos.value;
+    document.cookie = "apellidos=" + cookieApellidos;
 
     let inputEdad: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
     let cookieEdad: string = inputEdad.value;
+    document.cookie = "edad=" + cookieEdad;
 
     let inputTelefono: HTMLInputElement = document.getElementById("telefono") as HTMLInputElement;
     let cookieTelefono: string = inputTelefono.value;
+    document.cookie = "telefono=" + cookieTelefono;
 
     let inputFechaNacimiento: HTMLInputElement = document.getElementById("fecha_nacimiento") as HTMLInputElement;
-    let CookieFecha_nacimiento: string = inputFechaNacimiento.value;
+    let cookieFecha_nacimiento: string = inputFechaNacimiento.value;
+    document.cookie = "fecha_nac=" + cookieFecha_nacimiento;
 
     let inputUrl: HTMLInputElement = document.getElementById("url") as HTMLInputElement;
-    let CookieUrl: string = inputUrl.value;
+    let cookieUrl: string = inputUrl.value;
+    document.cookie = "url=" + cookieUrl;
 }
