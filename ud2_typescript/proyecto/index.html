@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Liga de Fútbol</h1>
+    <div id="clasificacion">
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>PTS</th>
+                    <th>PJ</th>
+                    <th>G</th>
+                    <th>D</th>
+                    <th>P</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DG</th>
+                    <th>Últimos 5</th>
+                </tr>
+            </thead>
+            <tbody id="body">
+            </tbody>
+        </table>
+    </div>
+    <form action="">
+        <label for="equipo_local">Equipo Local:</label>
+        <select id="equipo_local" onchange="matchEquipo()">
+            <option value="Real_Madrid">Real Madrid CF</option>
+            <option value="Barcelona">FC Barcelona</option>
+            <option value="Villareal">Villareal CF</option>
+            <option value="Atletico_Madrid">Atlético Madrid</option>
+            <option value="Betis">Real Betis Balompié</option>
+            <option value="Espanyol">RCD Espanyol</option>
+            <option value="Bilbao">Athletic Bilbao</option>
+            <option value="Getafe">Getafe CF</option>
+            <option value="Girona">Girona FC</option>
+            <option value="Real_Sociedad">Real Sociedad</option>
+        </select><br><br>
+        <label for="equipo_visitante">Equipo Visitante:</label>
+        <select id="equipo_visitante" onchange="matchEquipo()">
+            <option value="Real_Madrid">Real Madrid CF</option>
+            <option value="Barcelona">FC Barcelona</option>
+            <option value="Villareal">Villareal CF</option>
+            <option value="Atletico_Madrid">Atlético Madrid</option>
+            <option value="Betis">Real Betis Balompié</option>
+            <option value="Espanyol">RCD Espanyol</option>
+            <option value="Bilbao">Athletic Bilbao</option>
+            <option value="Getafe">Getafe CF</option>
+            <option value="Girona">Girona FC</option>
+            <option value="Real_Sociedad">Real Sociedad</option>
+        </select><br><br>
+        <label for="gol_local">Goles local:</label>
+        <input type="number" id="gol_local"/><br><br>
+        <label for="gol_visitante">Goles visitante:</label>
+        <input type="number" id="gol_visitante"/><br><br>
+    </form>
+    <button onclick="app()">Añadir información</button>
+</body>
+</html>
