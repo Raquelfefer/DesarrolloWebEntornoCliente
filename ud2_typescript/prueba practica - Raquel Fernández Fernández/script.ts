@@ -1,3 +1,7 @@
+window.onload = () =>{
+    cargar_datos_cookie();
+}
+
 function cambiar_funcion(){
     let inputOpciones: HTMLInputElement = document.getElementById("opciones") as HTMLInputElement;
     let opcion: number = Number(inputOpciones.value);
@@ -69,28 +73,41 @@ function show_edad(){
     inputParrafo.textContent = "Tienes " + edad + " años.";
 }
 
-function almacenar_cookies(){
-    let inputNombre: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
-    let cookieNombre: string = inputNombre.value;
-    document.cookie = "nombre=" + cookieNombre;
+function almacenar_cookies(): void{
+    document.cookie = "nombre=" + inputById("nombre").value;
+    document.cookie = "apellidos=" + inputById("apellidos").value;
+    document.cookie = "edad=" + inputById("edad").value;
+    document.cookie = "telefono=" + inputById("telefono").value;
+    document.cookie = "fechaNac=" + inputById("fecha_nacimiento").value;
+    document.cookie = "url=" + inputById("url").value;
+}
 
-    let inputApellidos: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
-    let cookieApellidos: string = inputApellidos.value;
-    document.cookie = "apellidos=" + cookieApellidos;
+function inputById(id: string): HTMLInputElement{
+    return document.getElementById(id) as HTMLInputElement;
+}
 
-    let inputEdad: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
-    let cookieEdad: string = inputEdad.value;
-    document.cookie = "edad=" + cookieEdad;
+function recuperarValorCookie(id: string): string{
+    let arrayCookie: string[] = document.cookie.split(";");
+    let result: string = ";"
+    for(let i = 0; i < arrayCookie.length; i++){
+        let clave =arrayCookie[i].split("=")[0];
+        let valor = arrayCookie[i].split("=")[1];
+        if(clave.trim() === id){
+            result = valor;
+        }
+    }
+    return result;
+}
 
-    let inputTelefono: HTMLInputElement = document.getElementById("telefono") as HTMLInputElement;
-    let cookieTelefono: string = inputTelefono.value;
-    document.cookie = "telefono=" + cookieTelefono;
+function cargar_datos_cookie(): void{
+    inputById("nombre").placeholder = recuperarValorCookie("nombre");
+    inputById("apellidos").placeholder = recuperarValorCookie("apellidos");
+    inputById("edad").placeholder = recuperarValorCookie("edad");
+    inputById("telefono").placeholder = recuperarValorCookie("telefono");
+    inputById("fecha_nacimiento").placeholder = recuperarValorCookie("fecha_nacimiento");
+    inputById("url").placeholder = recuperarValorCookie("url");
+}
 
-    let inputFechaNacimiento: HTMLInputElement = document.getElementById("fecha_nacimiento") as HTMLInputElement;
-    let cookieFecha_nacimiento: string = inputFechaNacimiento.value;
-    document.cookie = "fecha_nac=" + cookieFecha_nacimiento;
-
-    let inputUrl: HTMLInputElement = document.getElementById("url") as HTMLInputElement;
-    let cookieUrl: string = inputUrl.value;
-    document.cookie = "url=" + cookieUrl;
+function actualizar_web(){
+    window.location.reload();
 }

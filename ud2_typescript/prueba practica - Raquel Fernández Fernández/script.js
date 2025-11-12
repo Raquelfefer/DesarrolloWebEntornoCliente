@@ -1,3 +1,6 @@
+window.onload = function () {
+    cargar_datos_cookie();
+};
 function cambiar_funcion() {
     var inputOpciones = document.getElementById("opciones");
     var opcion = Number(inputOpciones.value);
@@ -57,16 +60,36 @@ function show_edad() {
     inputParrafo.textContent = "Tienes " + edad + " años.";
 }
 function almacenar_cookies() {
-    var inputNombre = document.getElementById("nombre");
-    var cookienombre = "nombre = ";
-    var inputApellidos = document.getElementById("nombre");
-    var cookieApellidos = "apellido = ";
-    var inputEdad = document.getElementById("nombre");
-    var cookieEdad = "edad = ";
-    var inputTelefono = document.getElementById("telefono");
-    var cookieTelefono = "telefono = ";
-    var inputFechaNacimiento = document.getElementById("fecha_nacimiento");
-    var CookieFecha_nacimiento = "fecha_nacimiento = ";
-    var inputUrl = document.getElementById("url");
-    var CookieUrl = "url = ";
+    document.cookie = "nombre=" + inputById("nombre").value;
+    document.cookie = "apellidos=" + inputById("apellidos").value;
+    document.cookie = "edad=" + inputById("edad").value;
+    document.cookie = "telefono=" + inputById("telefono").value;
+    document.cookie = "fechaNac=" + inputById("fecha_nacimiento").value;
+    document.cookie = "url=" + inputById("url").value;
+}
+function inputById(id) {
+    return document.getElementById(id);
+}
+function recuperarValorCookie(id) {
+    var arrayCookie = document.cookie.split(";");
+    var result = ";";
+    for (var i = 0; i < arrayCookie.length; i++) {
+        var clave = arrayCookie[i].split("=")[0];
+        var valor = arrayCookie[i].split("=")[1];
+        if (clave.trim() === id) {
+            result = valor;
+        }
+    }
+    return result;
+}
+function cargar_datos_cookie() {
+    inputById("nombre").placeholder = recuperarValorCookie("nombre");
+    inputById("apellidos").placeholder = recuperarValorCookie("apellidos");
+    inputById("edad").placeholder = recuperarValorCookie("edad");
+    inputById("telefono").placeholder = recuperarValorCookie("telefono");
+    inputById("fecha_nacimiento").placeholder = recuperarValorCookie("fecha_nacimiento");
+    inputById("url").placeholder = recuperarValorCookie("url");
+}
+function actualizar_web() {
+    window.location.reload();
 }
