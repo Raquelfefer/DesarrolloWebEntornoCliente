@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="titulo"></h1>
+    <form id="formulario" action="" method="post">
+        <label >ID:</label>
+        <input type="number" id="id"/><br><br>
+        <label >Descripción:</label>
+        <input type="text" id="descripcion"/><br><br>
+        <label >Tipo:</label>
+        <select id="opcion">
+            <option value="incidencia">Incidencia</option>
+            <option value="tarea">Tarea</option>
+            <option value="evento">Evento</option>
+        </select><br><br>
+    </form>
+    <button onclick="crearTarjeta()">Enviar</button>
+    <button onclick="limpiar_tarjetas()">Limpiar</button>
+    <div id="div"></div>
+</body>
+</html>
