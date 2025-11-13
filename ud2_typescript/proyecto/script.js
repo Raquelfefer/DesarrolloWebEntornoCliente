@@ -20,6 +20,8 @@ var equipos = [
 function matchEquipo() {
     //Recoger el nodo body para después añadirle el elemento parrafo con el mensaje
     var body = document.body;
+    //Recoger el boton
+    var boton = document.getElementById("boton");
     //Recogemos el parrafo con el mensaje de error si ya existe
     var mensajeError = document.getElementById("error");
     //Comprobamos si existe el parrafo con el mensaje de error y lo borramos
@@ -34,6 +36,10 @@ function matchEquipo() {
         error.textContent = "Error: los equipos visitante y local no pueden ser el mismo.";
         error.style.color = "red";
         body.appendChild(error);
+        boton.disabled = true; //Bloquea el botón
+    }
+    else {
+        boton.disabled = false; //Habilita el botón
     }
 }
 function mostrarEquipos() {

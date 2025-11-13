@@ -23,6 +23,8 @@ let equipos:(string | number)[][] = [
 function matchEquipo(): void{
     //Recoger el nodo body para después añadirle el elemento parrafo con el mensaje
     let body: HTMLBodyElement = document.body as HTMLBodyElement;
+    //Recoger el boton
+    let boton: HTMLButtonElement = document.getElementById("boton") as HTMLButtonElement;
     
     //Recogemos el parrafo con el mensaje de error si ya existe
     let mensajeError: HTMLParagraphElement = document.getElementById("error") as HTMLParagraphElement;
@@ -38,6 +40,9 @@ function matchEquipo(): void{
         error.textContent = "Error: los equipos visitante y local no pueden ser el mismo.";
         error.style.color = "red";
         body.appendChild(error);
+        boton.disabled = true; //Bloquea el botón
+    }else{
+        boton.disabled = false; //Habilita el botón
     }
 }
 
