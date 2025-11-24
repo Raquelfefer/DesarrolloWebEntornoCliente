@@ -1,0 +1,33 @@
+body{
+  margin: 0 auto;
+}
+
+.home {
+  text-align: center;
+}
+
+/* TÍTULO */
+.title {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, rgb(243, 166, 166), rgb(248, 220, 169), rgb(247, 247, 150), rgb(158, 248, 158), rgb(149, 149, 250), rgb(203, 145, 245), rgb(248, 201, 248));
+  color: transparent;               
+  background-clip: text;           
+  -webkit-background-clip: text;
+  margin-bottom: 20px;
+  
+}
+
+/* BANNER */
+.banner img{
+  width: 100%;
+  height: 200px;
+}
+
+/* TEXTO */
+.content {
+  max-width: 700px;
+  margin: 30px auto 0;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
