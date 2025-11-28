@@ -21,7 +21,16 @@ export class App {
   public fruta:string = "";
   public matriz1: number[][] = this.inicializa_matriz();
   public matriz2: number[][] = this.inicializa_matriz();
-  
+  public entreSemana: Set<string> = new Set(["Lunes","Martes","Miercoles","Jueves","Viernes"]);
+  public finDeSemana: Set<string> = new Set(["Sabado","Domingo"]);
+  public diasSemana: Set<string> = new Set();
+  public alumnos: Set<string> = new Set();
+  public elementos: string[] = ["Lunes", "Martes", "Miercoles", "Lunes", "Lunes","Viernes"];
+  public array1: number[] = [1,2,3,4,5,6,7,8,9,10];
+  public array2: number[] = [5,6,7,8,9,10,11,12,13,14,15];
+  public array3: number[] = [10,11,12,13,14,15,16,17,18,19,20];
+  public conjuntoNumeros: Set<number> = new Set();
+
   /* Ejercicio 1 */
   public filtrar_playas_pares(): string[]{
     /* let playas_pares: string[] = [];
@@ -134,4 +143,81 @@ export class App {
       }
     }
   }
+
+  /* Ejercicio 11 */
+  public rellena_semana(): void{
+    this.diasSemana.add("Lunes").add("Martes").add("Miercoles").add("Jueves").add("Viernes").add("Sabado").add("Domingo");
+  }
+
+  public unir_conjuntos(): void{
+    this.diasSemana = new Set([...this.entreSemana, ...this.finDeSemana]);
+  }
+
+  /* Ejercicio 12 */
+  public operar_conjunto(opt: number): void{
+    switch(opt){
+      case 1:
+        this.add_to_set();
+        console.log(this.alumnos);
+        break;
+      case 2:
+        this.delete_from_set();
+        console.log(this.alumnos);
+        break;
+      case 3:
+        let estaSalvador: boolean = this.find_int_set("Salvador");
+        let estaXexu: boolean = this.find_int_set("Xexu");
+        console.log ("El alumno xexu esta? " + estaXexu);
+        console.log ("El alumno salvador esta? " + estaSalvador);
+        break;
+      case 4:
+        let tam: number = this.count_set();
+        console.log("El conjunto de alumnos tiene " + tam + " elementos.");
+        break;
+    }
+  }
+
+  private add_to_set(): void{
+    this.alumnos.add("Pedro").add("Sara").add("Maria").add("Juan").add("Salvador");
+  }
+
+  private delete_from_set(): void{
+    this.alumnos.delete("Maria");
+  }
+
+  private find_int_set(alumno: string): boolean{
+    return this.alumnos.has(alumno);
+  }
+
+  private count_set(): number{
+    return this.alumnos.size;
+  }
+
+  /* Ejercicio 13 */
+  public eliminaDuplicados(): void{
+    let elementosSinDuplicar: Set<string> = new Set([...this.elementos]);
+    this.elementos = [...elementosSinDuplicar];
+  }
+
+  /* Ejercicio 14 */
+  public combinaArray(): void{
+    this.conjuntoNumeros = new Set([...this.array1, ...this.array2, ...this.array3]);
+  }
+
+  /* Ejercicio 15 */
+  public listin_telefonico(): Map<string, string>{
+    let listin: Map<String, string> = new Map();
+
+    listin.set("Juan", "123456789");
+    listin.set("Maria", "123456789");
+    listin.set("Pedro", "542154785");
+
+    console.table(listin);
+    return listin;
+  }
+
+
+
+
+
 } 
