@@ -25,6 +25,11 @@ export class App implements OnInit{
   ngOnInit(): void {
     console.log("Datos = " + this.datos);
     console.log("Alumnos = " + this.compis);
+    const alumno1 = new Alumno("Ana", "García López", new Date("1998-05-12"), 2, 1, 4);
+    const alumno2 = new Alumno("Luis", "Martínez Ruiz", new Date("2001-03-20"), 5, 7, 7);
+    const alumno3 = new Alumno("María", "Pérez Soto", new Date("1995-11-08"), 3, 9, 10);
+    const alumno4 = new Alumno("Pedro", "Gómez Díaz", new Date("2002-07-15"), 6, 7, 5);
+    this.alumnos.push(alumno1,alumno2,alumno3,alumno4);
   }
 
   public dobleDatos(): void{
@@ -70,8 +75,26 @@ export class App implements OnInit{
     console.log(precios.map(p => p*(1-porcentaje/100)));
   }
 
+  //Ejercicio 7 
+  public modaNotas(): void{
+    const todasLasNotas = this.alumnos.flatMap(a => [a.nota1,a.nota2,a.nota3]);
+
+  }
+
   public mediaEstudiantes(): void{
-    this.alumnos.reduce(((acum, al) => acum + al.notaMedia) / this.alumnos.length);
+    console.log(this.alumnos.reduce((acum, al) => acum + al.notaMedia,0 / this.alumnos.length));
+  }
+
+  public mediaAprobados():void{
+    console.log(this.alumnos.filter(a => a.notaMedia >= 5).reduce((acum, al) => acum + al.notaMedia,0 / this.alumnos.length));
+  }
+
+  public notaMayorAlumnoFecha():void{
+    const notas = this.alumnos
+      .filter(a => a.fechaNac.getFullYear() <= 2000)
+      .map(a => a.notaMasAlta);
+
+    console.log(Math.max(...notas));
   }
 
 }

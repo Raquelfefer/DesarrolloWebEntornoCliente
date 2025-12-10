@@ -25,5 +25,6 @@ export class Alumno {
 
     get notaMedia(): number {return (this._nota1 + this._nota2 + this._nota3)/3};
     
+    get notaMasAlta(): number {return Math.max(this.nota1, this.nota2, this.nota3)}
 
 }
