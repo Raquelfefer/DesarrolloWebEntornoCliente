@@ -1,0 +1,133 @@
+/* Centrar todo el contenido en la página */
+.contenedor-detalle {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+    min-height: 80vh; /* Que ocupe buen alto */
+}
+
+/* Estilo de la "Tarjeta" blanca */
+.ficha-equipo {
+    background-color: white;
+    width: 100%;
+    max-width: 600px; /* Que no se ensanche demasiado */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Imagen y Título */
+.escudo-grande {
+    width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #333;
+    margin: 10px 0;
+}
+
+h3 {
+    color: #575859;
+    margin-top: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* Grid para las estadísticas (Puntos, Goles...) */
+.grid-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.numero {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.etiqueta {
+    font-size: 0.8em;
+    color: #666;
+    text-transform: uppercase;
+}
+
+/* Lista de Jugadores */
+.lista-jugadores {
+    list-style: none;
+    padding: 0;
+    text-align: left; /* Alineamos nombres a la izquierda */
+}
+
+.lista-jugadores li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.dorsal {
+    background-color: #333;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 0.9em;
+}
+
+.nombre-jugador {
+    font-weight: bold;
+    flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+.posicion-jugador {
+    color: #888;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.aviso-vacio {
+    color: gray;
+    font-style: italic;
+}
+
+/* Botón Volver */
+.boton-volver {
+    margin-top: 30px;
+    padding: 10px 25px;
+    background-color: #575859;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.boton-volver:hover {
+    background-color: #333;
+}

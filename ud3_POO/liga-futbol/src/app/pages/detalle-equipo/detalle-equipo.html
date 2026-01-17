@@ -1,0 +1,59 @@
+<app-encabezado></app-encabezado>
+
+<div class="contenedor-detalle">
+    
+    <div *ngIf="equipo" class="ficha-equipo">
+        
+        <div class="cabecera">
+            <img [src]="equipo.urlEscudo" [alt]="equipo.nombre" class="escudo-grande">
+            <h1>{{ equipo.nombre }}</h1>
+        </div>
+
+        <hr>
+
+        <div class="seccion-stats">
+            <h3>Estadísticas Temporada</h3>
+            <div class="grid-stats">
+                <div class="stat-item">
+                    <span class="numero">{{ equipo.puntos }}</span>
+                    <span class="etiqueta">Puntos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="numero">{{ equipo.partidosJugados }}</span>
+                    <span class="etiqueta">Jugados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="numero">{{ equipo.golesFavor }}</span>
+                    <span class="etiqueta">Goles F.</span>
+                </div>
+                <div class="stat-item">
+                    <span class="numero">{{ equipo.diferenciaGoles }}</span>
+                    <span class="etiqueta">Dif. Goles</span>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="seccion-plantilla">
+            <h3>Plantilla de Jugadores</h3>
+            
+            <ul class="lista-jugadores">
+                <li *ngFor="let jugador of equipo.jugadores">
+                    <span class="dorsal">#{{ jugador.dorsal }}</span>
+                    <span class="nombre-jugador">{{ jugador.nombre }}</span>
+                    <span class="posicion-jugador">{{ jugador.posicion }}</span>
+                </li>
+            </ul>
+
+            <p *ngIf="equipo.jugadores.length === 0" class="aviso-vacio">
+                No hay jugadores registrados para este equipo.
+            </p>
+        </div>
+
+        <button routerLink="/" class="boton-volver">Volver a la clasificación</button>
+
+    </div>
+</div>
+
+<app-pie-pagina></app-pie-pagina>

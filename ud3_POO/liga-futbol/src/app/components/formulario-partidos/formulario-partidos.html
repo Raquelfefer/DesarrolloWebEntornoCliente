@@ -1,0 +1,36 @@
+<div id="formulario">
+    <h2>Actualizar resultados</h2>
+    <form (ngSubmit)="actualizar()">
+        <label>Equipo Local:</label>
+        <select [(ngModel)]="localId" name="local">
+            <option *ngFor="let e of equipos" [value]="e.id">{{ e.nombre }}</option>
+        </select>
+        <br><br>
+
+        <label>Equipo Visitante:</label>
+        <select [(ngModel)]="visitanteId" name="visitante">
+            <option *ngFor="let e of equipos" [value]="e.id">{{ e.nombre }}</option>
+        </select>
+        <br><br>
+
+        <label>Goles Local:</label>
+        <input type="number" [(ngModel)]="golesLocal" name="golesLocal" class="input-goles">
+        <br><br>
+
+        <label>Goles Visitante:</label>
+        <input type="number" [(ngModel)]="golesVisitante" name="golesVisitante" class="input-goles">
+        <br><br>
+
+        <button type="submit" [disabled]="localId === visitanteId || !localId || !visitanteId || golesLocal < 0 || golesVisitante < 0" class="boton-actualizar">
+            Actualizar información
+        </button>
+
+        <p *ngIf="localId === visitanteId && localId !== ''" style="color: red; font-weight: bold;">
+            Error: Los equipos no pueden ser el mismo.
+        </p>
+
+        <p *ngIf="golesLocal < 0 || golesVisitante < 0" style="color: red; font-weight: bold;">
+            Error: No se permiten goles negativos.
+        </p>
+    </form>
+</div>

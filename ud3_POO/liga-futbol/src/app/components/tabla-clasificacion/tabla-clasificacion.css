@@ -1,0 +1,40 @@
+#clasificacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+thead {
+    background-color: #575859;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+tbody tr:nth-child(even) { background-color: #e1e1e1; }
+
+.equipo-celda { text-align: left; font-weight: 600; }
+
+.enlace-detalle {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.enlace-detalle:hover { color: #007bff; }
+
+.escudo-peq { width: 24px; margin-right: 8px; vertical-align: middle; }
+.icono-resultado { width: 20px; margin: 0 1px; }
