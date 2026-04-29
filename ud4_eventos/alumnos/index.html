@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Alumnos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Panel de Gestión Académica</h1>
+    </header>
+
+    <main class="container">
+        <section class="cajas-container">
+            <div class="caja">
+                <h3>Alumnos Registrados</h3>
+                <ul id="lista-alumnos"></ul>
+            </div>
+            <div class="caja">
+                <h3>Seleccionados</h3>
+                <ul id="lista-seleccionados"></ul>
+            </div>
+        </section>
+
+        <section class="acciones">
+            <button id="btn-nuevo" class="btn-primario">Nuevo Alumno</button>
+            <button id="btn-enviar-global" class="btn-secundario">Enviar Listado</button>
+        </section>
+
+        <section id="contenedor-formulario" class="oculto card">
+            <h3>Registrar Nuevo Alumno</h3>
+            <form id="form-alumno">
+                <div class="grupo-input">
+                    <input type="text" id="nombre" placeholder="Nombre" required>
+                    <input type="text" id="apellidos" placeholder="Apellidos" required>
+                    <input type="number" id="edad" placeholder="Edad" required>
+                </div>
+                <button type="submit" class="btn-guardar">Guardar y Cerrar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sistema de Gestión Escolar</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
