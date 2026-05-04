@@ -1,0 +1,11 @@
+<!-- Menú de navegación global -->
+<nav class="main-nav">
+  <div class="logo">Trello DAW</div>
+  <div class="links">
+    <a routerLink="/board" routerLinkActive="active">Tableros</a>
+    <a routerLink="/usuarios" routerLinkActive="active">Usuarios</a>
+  </div>
+</nav>
+
+<!-- Aquí se cargará BoardComponent o UserCrudComponent según la URL -->
+<router-outlet></router-outlet>
