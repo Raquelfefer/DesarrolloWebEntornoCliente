@@ -1,0 +1,30 @@
+<div style="padding: 20px; font-family: sans-serif;">
+  <h1>🚀 Panel de Control - Examen Angular</h1>
+  <hr>
+
+  <h3>Empresa: {{ empresa.nombre }}</h3>
+
+  <!-- Botones para ejecutar las funciones -->
+  <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+    <button (click)="probarAlias()">Ver Alias Alumno 1</button>
+    <button (click)="probarListado()">Listar Alumnos</button>
+    <button (click)="probarMedia()">Calcular Nota Media</button>
+    <button (click)="probarHoras()">Ver Horas Totales</button>
+  </div>
+
+  <hr>
+
+  <!-- Sección de Resultados -->
+  <div style="background-color: #f4f4f4; padding: 15px; border-radius: 8px;">
+    <h4>Resultados:</h4>
+    <p><b>Alias generado:</b> {{ aliasResultado }}</p>
+    
+    <p><b>Lista de Alumnos (Únicos):</b></p>
+    <ul>
+      <li *ngFor="let nombre of listaNombres">{{ nombre }}</li>
+    </ul>
+
+    <p><b>Nota Media (Truncada):</b> {{ mediaResultado }}</p>
+    <p><b>Horas Totales Convenios Válidos:</b> {{ horasTotales }} h</p>
+  </div>
+</div>

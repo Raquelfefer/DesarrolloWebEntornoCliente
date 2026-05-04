@@ -240,7 +240,7 @@ export class LigaService {
     return this._equipos.find(e => e.id === id);
   }
 
-  registrarPartido(idLocal: string, idVisitante: string, golesLocal: number, golesVisitante: number){
+  registrarPartido(idLocal: string, idVisitante: string, golesLocal: number, golesVisitante: number): void{
     const local = this.getEquipoPorId(idLocal);
     const visitante = this.getEquipoPorId(idVisitante);
 
