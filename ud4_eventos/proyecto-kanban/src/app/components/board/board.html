@@ -1,0 +1,74 @@
+<!-- Menú superior para cambiar de tablero (Requisito 1) -->
+<nav class="board-menu">
+  <button (click)="crearTablero()">+ Nuevo Tablero</button>
+  <select (change)="seleccionarTablero(tableros[+t.value])" #t>
+    <option *ngFor="let b of tableros; let i = index" [value]="i">{{b.nombre}}</option>
+  </select>
+</nav>
+
+<!-- Contenedor del Tablero con Imagen de Fondo (Requisito 2) -->
+<div class="board-canvas" *ngIf="tableroActivo" 
+     [style.backgroundImage]="'url(' + tableroActivo?.imagenFondo + ')'">
+  
+  <div class="header-board">
+    <h1>{{tableroActivo.nombre}}</h1>
+    <button (click)="nuevaColumna()">Añadir Columna</button>
+  </div>
+
+  <!-- Contenedor de Columnas (Estilo horizontal) -->
+  <div class="columns-container">
+    
+    <div class="column" *ngFor="let col of tableroActivo.columnas"
+         (dragover)="onDragOver($event)"
+         (drop)="onDrop($event, col.id)">
+      
+      <h3>{{col.nombre}}</h3>
+      <hr>
+
+      <!-- Lista de Tareas -->
+      <div class="task-list">
+        <div class="task-card" *ngFor="let task of col.tareas"
+             draggable="true" 
+             (dragstart)="onDragStart($event, task.id)">
+          <h4>{{task.titulo}}</h4>
+          <p>{{task.descripcion}}</p>
+          <small>Horas: {{task.estimacionHoras}}h | 
+                 User: {{task.usuario?.nombre || 'Sin asignar'}}</small>
+        </div>
+      </div>
+
+      <!-- Botón para crear tarea (Simplificado para este ejemplo) -->
+      <button class="btn-add-task" (click)="lanzarFormularioTarea(col.id)">+ Añadir tarea</button>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal del Formulario de Tarea -->
+<div class="modal-overlay" *ngIf="mostrarFormularioTarea">
+  <div class="modal-content">
+    <h3>Nueva Tarea</h3>
+    
+    <label>Título:</label>
+    <input type="text" [(ngModel)]="nuevaTarea.titulo" placeholder="Ej: Diseñar base de datos">
+
+    <label>Descripción:</label>
+    <textarea [(ngModel)]="nuevaTarea.descripcion"></textarea>
+
+    <label>Estimación (Horas):</label>
+    <input type="number" [(ngModel)]="nuevaTarea.estimacionHoras">
+
+    <label>Asignar Usuario:</label>
+    <select [(ngModel)]="nuevaTarea.usuarioId">
+      <option value="">-- Seleccionar Usuario --</option>
+      <option *ngFor="let u of usuarios" [value]="u.id">
+        {{u.nombre}} {{u.apellidos}}
+      </option>
+    </select>
+
+    <div class="modal-buttons">
+      <button (click)="guardarTarea()" class="btn-save">Crear Tarea</button>
+      <button (click)="mostrarFormularioTarea = false" class="btn-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>

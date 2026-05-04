@@ -1,0 +1,26 @@
+.main-nav {
+  background-color: #026aa7; /* Azul clásico de Trello */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.links a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* Estilo para el enlace de la página donde estamos actualmente */
+.active {
+  background-color: rgba(255,255,255,0.3);
+  font-weight: bold;
+}
