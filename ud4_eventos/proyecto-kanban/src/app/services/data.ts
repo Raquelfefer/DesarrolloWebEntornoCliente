@@ -14,7 +14,32 @@ export class Data {
   private users: User[] = [];
   private activeBoard: Board | null = null;
 
-  constructor() {}
+  constructor() {
+    this.seedData();
+  }
+
+  private seedData(): void {
+    // Usuarios iniciales
+    this.users.push(new User(1, 'Raquel', 'Ferreira', 'raquel@example.com'));
+    this.users.push(new User(2, 'Juan', 'Perez', 'juan@example.com'));
+
+    // Tablero inicial
+    const boardId = 1;
+    const board = new Board(boardId, 'Mi Primer Tablero', 'https://picsum.photos/id/10/1200/800');
+    
+    // Tarea de ejemplo en 'Por hacer'
+    board.columnas[0].tareas.push(new Task(
+      Date.now(), 
+      'Estudiar Eventos JS', 
+      'Repasar preventDefault y Drag & Drop', 
+      5, 
+      this.users[0], 
+      '1'
+    ));
+
+    this.boards.push(board);
+    this.activeBoard = board;
+  }
   
   getBoards(): Board[] {
     return this.boards;

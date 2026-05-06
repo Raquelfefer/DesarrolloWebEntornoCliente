@@ -12,7 +12,10 @@
   
   <div class="header-board">
     <h1>{{tableroActivo.nombre}}</h1>
-    <button (click)="nuevaColumna()">Añadir Columna</button>
+    <div class="board-actions">
+      <button (click)="lanzarFormularioTarea()" class="btn-primary">Nueva Tarea</button>
+      <button (click)="nuevaColumna()">Añadir Columna</button>
+    </div>
   </div>
 
   <!-- Contenedor de Columnas (Estilo horizontal) -->

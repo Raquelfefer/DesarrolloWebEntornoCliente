@@ -21,11 +21,13 @@ export class UserCrud implements OnInit{
   }
 
   gestionarEnvio(event: Event){
+    event.preventDefault(); // Evitamos recarga de página (Buenas prácticas SPA)
+
     const form = event.target as HTMLFormElement;
     const id = Number((form.elements.namedItem('idUsuario') as HTMLInputElement).value);
-    const nombre = (form.elements.namedItem('emailUsuario') as HTMLInputElement).value;
-    const email = (form.elements.namedItem('nombreUsuario') as HTMLInputElement).value;  
+    const nombre = (form.elements.namedItem('nombreUsuario') as HTMLInputElement).value;
     const apellidos = (form.elements.namedItem('apellidosUsuario') as HTMLInputElement).value;
+    const email = (form.elements.namedItem('emailUsuario') as HTMLInputElement).value;  
 
     const usuarioProcesado = new User(id, nombre, apellidos, email);
 
@@ -36,7 +38,6 @@ export class UserCrud implements OnInit{
     }else{
       const duplicado = this.usuarios.some(u => u.id === id || u.email === email);
       if(duplicado){
-        event.preventDefault();
         alert('Error: El ID o el Email ya están registrados.');
         return;
       }
@@ -54,7 +55,7 @@ export class UserCrud implements OnInit{
   prepararEdicion(u: User){
     this.isEditing = true;
 
-    const form = document.querySelector('#userForm') as HTMLFormElement;
+    const form = document.querySelector('.user-form') as HTMLFormElement;
     (form.elements.namedItem('idUsuario') as HTMLInputElement).value = u.id.toString();
     (form.elements.namedItem('emailUsuario') as HTMLInputElement).value = u.email;
     (form.elements.namedItem('nombreUsuario') as HTMLInputElement).value = u.nombre;

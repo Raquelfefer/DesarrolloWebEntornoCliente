@@ -89,8 +89,13 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  lanzarFormularioTarea(columnaId: number){
-    this.idColumnaDestino = columnaId;
+  lanzarFormularioTarea(columnaId?: number){
+    if (columnaId) {
+      this.idColumnaDestino = columnaId;
+    } else if (this.tableroActivo && this.tableroActivo.columnas.length > 0) {
+      // Requisito 6: Por defecto en la columna "Por hacer" (la primera)
+      this.idColumnaDestino = this.tableroActivo.columnas[0].id;
+    }
     this.mostrarFormularioTarea = true; 
     this.usuarios = this.data.getUsers();
   }
