@@ -1,0 +1,110 @@
+body{
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 100px;
+  grid-template-areas: 
+  "header header"
+  "form table"
+  "footer footer";
+  height: 100vh;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+header{
+  grid-area: header;
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+header img{
+  height: 50%; 
+}
+
+#formulario {
+  grid-area: form;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+form{
+  border: 2px black solid;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#clasificacion {
+  grid-area: table;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+thead {
+  background-color: #575859;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+thead th {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+tbody td {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 13px;
+  color: #333;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e1e1e1;
+}
+
+tbody td:first-child {
+  text-align: left;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+tbody td img {
+  vertical-align: middle;
+  margin-right: 8px;
+  border-radius: 4px;
+}
+
+tbody td:last-child span {
+  display: inline-block;
+  margin: 0 3px; 
+}
+
+footer {
+  grid-area: footer;
+  background-color: lightgray;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
