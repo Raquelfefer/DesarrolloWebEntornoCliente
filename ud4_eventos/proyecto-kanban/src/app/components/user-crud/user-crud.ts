@@ -1,68 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-import {Data} from '../../services/data';
-import {User} from '../../models/user';
+import { Data } from '../../services/data';
+import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-crud',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-crud.html',
   styleUrl: './user-crud.css',
 })
-export class UserCrud implements OnInit{
+export class UserCrud implements OnInit {
   usuarios: User[] = [];
   isEditing: boolean = false;
-  
+
+  /**
+   * Modelo para el formulario (Databinding bidireccional)
+   * Requisito: El control (databinding) de los datos se encuentra en los componentes (TS)
+   */
+  usuarioActual: User = new User(0, '', '', '');
+
   constructor(private dataService: Data) {}
 
   ngOnInit(): void {
     this.usuarios = this.dataService.getUsers();
   }
 
-  gestionarEnvio(event: Event){
-    event.preventDefault(); // Evitamos recarga de página (Buenas prácticas SPA)
-
-    const form = event.target as HTMLFormElement;
-    const id = Number((form.elements.namedItem('idUsuario') as HTMLInputElement).value);
-    const nombre = (form.elements.namedItem('nombreUsuario') as HTMLInputElement).value;
-    const apellidos = (form.elements.namedItem('apellidosUsuario') as HTMLInputElement).value;
-    const email = (form.elements.namedItem('emailUsuario') as HTMLInputElement).value;  
-
-    const usuarioProcesado = new User(id, nombre, apellidos, email);
-
-    if(this.isEditing){
-      this.dataService.updateUser(usuarioProcesado);
+  /**
+   * Gestiona el registro o actualización de un usuario.
+   * Requisito: El email del usuario será un campo único (sin duplicidades).
+   */
+  gestionarEnvio() {
+    if (this.isEditing) {
+      this.dataService.updateUser(this.usuarioActual);
       this.isEditing = false;
-      (form.elements.namedItem('idUsuario') as HTMLInputElement).disabled = false;
-    }else{
-      const duplicado = this.usuarios.some(u => u.id === id || u.email === email);
-      if(duplicado){
-        alert('Error: El ID o el Email ya están registrados.');
+    } else {
+      // Validar duplicidad antes de añadir
+      // Requisito: Lógica de negocio en servicios (adduser ya lo comprueba, pero aquí damos feedback)
+      const exito = this.dataService.adduser(
+        new User(
+          this.usuarioActual.id,
+          this.usuarioActual.nombre,
+          this.usuarioActual.apellidos,
+          this.usuarioActual.email
+        )
+      );
+
+      if (!exito) {
+        alert('Error: El ID o el Email ya están registrados (deben ser únicos).');
         return;
       }
-      this.dataService.adduser(usuarioProcesado);
     }
     this.usuarios = this.dataService.getUsers();
-    form.reset();
+    this.resetFormulario();
   }
 
-  borrarUsuario(id: number): void{
-    this.dataService.deleteUser(id);
-    this.usuarios = this.dataService.getUsers();
+  /**
+   * Elimina un usuario del sistema.
+   */
+  borrarUsuario(id: number): void {
+    if (confirm('¿Estás seguro de eliminar este usuario?')) {
+      this.dataService.deleteUser(id);
+      this.usuarios = this.dataService.getUsers();
+    }
   }
 
-  prepararEdicion(u: User){
+  /**
+   * Carga los datos del usuario seleccionado en el formulario para editar.
+   */
+  prepararEdicion(u: User) {
     this.isEditing = true;
-
-    const form = document.querySelector('.user-form') as HTMLFormElement;
-    (form.elements.namedItem('idUsuario') as HTMLInputElement).value = u.id.toString();
-    (form.elements.namedItem('emailUsuario') as HTMLInputElement).value = u.email;
-    (form.elements.namedItem('nombreUsuario') as HTMLInputElement).value = u.nombre;
-    (form.elements.namedItem('apellidosUsuario') as HTMLInputElement).value = u.apellidos;
-    
-    (form.elements.namedItem('idUsuario') as HTMLInputElement).disabled = true;
+    // Creamos una copia para no modificar la lista directamente hasta guardar
+    this.usuarioActual = { ...u };
   }
 
-
+  resetFormulario() {
+    this.usuarioActual = new User(0, '', '', '');
+    this.isEditing = false;
+  }
 }
+

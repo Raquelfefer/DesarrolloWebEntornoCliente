@@ -5,6 +5,8 @@ export class Column {
     constructor(
         public id: number,
         public nombre: string,
-        public tareas: Task[] = []
+        public tareas: Task[] = [],
+        public color: string = '#ebecf0' // Color por defecto (gris suave)
     ){}
+
 }

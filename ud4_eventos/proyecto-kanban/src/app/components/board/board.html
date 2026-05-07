@@ -1,77 +1,211 @@
-<!-- Menú superior para cambiar de tablero (Requisito 1) -->
-<nav class="board-menu">
-  <button (click)="crearTablero()">+ Nuevo Tablero</button>
-  <select (change)="seleccionarTablero(tableros[+t.value])" #t>
-    <option *ngFor="let b of tableros; let i = index" [value]="i">{{b.nombre}}</option>
-  </select>
-</nav>
-
-<!-- Contenedor del Tablero con Imagen de Fondo (Requisito 2) -->
-<div class="board-canvas" *ngIf="tableroActivo" 
-     [style.backgroundImage]="'url(' + tableroActivo?.imagenFondo + ')'">
+<!-- Estructura de la web: Cabecera, Índice y Contenido (Requisito 4.5 pts) -->
+<div class="layout-container">
   
-  <div class="header-board">
-    <h1>{{tableroActivo.nombre}}</h1>
-    <div class="board-actions">
-      <button (click)="lanzarFormularioTarea()" class="btn-primary">Nueva Tarea</button>
-      <button (click)="nuevaColumna()">Añadir Columna</button>
+  <!-- ÍNDICE: Barra lateral para navegación entre tableros -->
+  <aside class="board-sidebar">
+    <h3>Tableros</h3>
+    <ul class="sidebar-list">
+      @for (b of tableros; track b.id) {
+        <li (click)="seleccionarTablero(b)" [class.active]="tableroActivo?.id === b.id">
+          {{b.nombre}}
+        </li>
+      }
+    </ul>
+    <button (click)="lanzarFormularioTablero()" class="btn-sidebar">+ Nuevo Tablero</button>
+  </aside>
+
+  <!-- CONTENIDO: Área principal del tablero -->
+  <main class="board-main">
+    @if (tableroActivo) {
+      <div class="board-canvas" [style.background]="tableroActivo.fondo.startsWith('http') ? 'url(' + tableroActivo.fondo + ') center/cover' : tableroActivo.fondo">
+
+        
+        <!-- CABECERA: Título y acciones rápidas -->
+        <header class="header-board">
+          <h1>{{tableroActivo.nombre}}</h1>
+          <div class="board-actions">
+            <button (click)="lanzarFormularioTarea()" class="btn-primary">Nueva Tarea</button>
+            <button (click)="lanzarFormularioColumna()" class="btn-secondary">Añadir Columna</button>
+          </div>
+        </header>
+        @if (mostrarMensajeLimite) {
+          <div class="limit-warning animated-fade">⚠️ No puedes crear más de 5 columnas. Debes borrar una antes.</div>
+        }
+
+
+
+        <!-- Contenedor de Columnas -->
+        <div class="columns-container">
+          @for (col of tableroActivo.columnas; track col.id) {
+            <div class="column" 
+                 [style.backgroundColor]="col.color"
+                 (dragover)="onDragOver($event)"
+                 (drop)="onDrop($event, col.id)">
+
+              
+              <div class="column-header">
+                <h3>{{col.nombre}}</h3>
+                <div class="column-header-actions">
+                  <span class="count">{{col.tareas.length}}</span>
+                  <button (click)="prepararEdicionColumna(col)" class="btn-edit-column" title="Editar columna">✎</button>
+                  <button (click)="borrarColumna(col.id)" class="btn-delete-column" title="Eliminar columna">X</button>
+
+
+                </div>
+              </div>
+
+
+              <hr>
+
+              <!-- Lista de Tareas -->
+              <div class="task-list">
+                @for (task of col.tareas; track task.id) {
+                  <div class="task-card" 
+                       draggable="true" 
+                       [class.dragging]="idTareaEnMovimiento === task.id"
+                       (dragstart)="onDragStart($event, task.id)"
+                       (dragend)="onDragEnd()">
+                    <div class="task-header">
+                      <h4>{{task.titulo}}</h4>
+                      <div class="task-actions">
+                        <button (click)="prepararEdicionTarea(task)" class="btn-edit-task" title="Editar tarea">✎</button>
+                        <button (click)="borrarTarea(task.id)" class="btn-delete-task" title="Eliminar tarea">×</button>
+                      </div>
+
+                    </div>
+
+                    <p>{{task.descripcion}}</p>
+
+                    <div class="task-footer">
+                      <small>Estimación: {{task.estimacionHoras}}h</small>
+                      @if (task.usuario) {
+                        <span class="badge">{{task.usuario.nombre}}</span>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+
+              <button class="btn-add-task" (click)="lanzarFormularioTarea(col.id)">+ Añadir tarea</button>
+            </div>
+          }
+        </div>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>Selecciona un tablero para comenzar a trabajar.</p>
+      </div>
+    }
+  </main>
+</div>
+
+<!-- Modal del Formulario de Tarea (Requisito: Tareas por defecto en 'Por hacer') -->
+@if (mostrarFormularioTarea) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <h3>{{ isEditingTarea ? 'Editar Tarea' : 'Nueva Tarea' }}</h3>
+      
+      <div class="form-group">
+
+        <label>Título:</label>
+        <input type="text" [(ngModel)]="nuevaTarea.titulo" placeholder="Ej: Diseñar base de datos">
+      </div>
+
+      <div class="form-group">
+        <label>Descripción:</label>
+        <textarea [(ngModel)]="nuevaTarea.descripcion"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Estimación (Horas):</label>
+        <input type="number" [(ngModel)]="nuevaTarea.estimacionHoras">
+      </div>
+
+      <div class="form-group">
+        <label>Asignar Usuario:</label>
+        <select [(ngModel)]="nuevaTarea.usuarioId">
+          <option value="">-- Seleccionar Usuario --</option>
+          @for (u of usuarios; track u.id) {
+            <option [value]="u.id">{{u.nombre}} {{u.apellidos}}</option>
+          }
+        </select>
+      </div>
+
+      <div class="modal-buttons">
+        <button (click)="guardarTarea()" class="btn-save">
+          {{ isEditingTarea ? 'Actualizar Tarea' : 'Crear Tarea' }}
+        </button>
+        <button (click)="mostrarFormularioTarea = false" class="btn-cancel">Cancelar</button>
+      </div>
+
     </div>
   </div>
+}
 
-  <!-- Contenedor de Columnas (Estilo horizontal) -->
-  <div class="columns-container">
-    
-    <div class="column" *ngFor="let col of tableroActivo.columnas"
-         (dragover)="onDragOver($event)"
-         (drop)="onDrop($event, col.id)">
+<!-- Modal del Formulario de Tablero -->
+@if (mostrarFormularioTablero) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <h3>Nuevo Tablero</h3>
       
-      <h3>{{col.nombre}}</h3>
-      <hr>
+      <div class="form-group">
+        <label>Nombre del Tablero:</label>
+        <input type="text" [(ngModel)]="nuevoTablero.nombre" placeholder="Ej: Proyecto Final">
+      </div>
 
-      <!-- Lista de Tareas -->
-      <div class="task-list">
-        <div class="task-card" *ngFor="let task of col.tareas"
-             draggable="true" 
-             (dragstart)="onDragStart($event, task.id)">
-          <h4>{{task.titulo}}</h4>
-          <p>{{task.descripcion}}</p>
-          <small>Horas: {{task.estimacionHoras}}h | 
-                 User: {{task.usuario?.nombre || 'Sin asignar'}}</small>
+      <div class="form-group">
+        <label>Color de Fondo:</label>
+        <div class="color-picker">
+          @for (color of coloresPastel; track color) {
+            <div class="color-option" 
+                 [style.backgroundColor]="color"
+                 [class.selected]="nuevoTablero.color === color"
+                 (click)="nuevoTablero.color = color">
+            </div>
+          }
         </div>
       </div>
 
-      <!-- Botón para crear tarea (Simplificado para este ejemplo) -->
-      <button class="btn-add-task" (click)="lanzarFormularioTarea(col.id)">+ Añadir tarea</button>
-
+      <div class="modal-buttons">
+        <button (click)="guardarTablero()" class="btn-save">Crear Tablero</button>
+        <button (click)="mostrarFormularioTablero = false" class="btn-cancel">Cancelar</button>
+      </div>
     </div>
   </div>
-</div>
+}
 
-<!-- Modal del Formulario de Tarea -->
-<div class="modal-overlay" *ngIf="mostrarFormularioTarea">
-  <div class="modal-content">
-    <h3>Nueva Tarea</h3>
-    
-    <label>Título:</label>
-    <input type="text" [(ngModel)]="nuevaTarea.titulo" placeholder="Ej: Diseñar base de datos">
 
-    <label>Descripción:</label>
-    <textarea [(ngModel)]="nuevaTarea.descripcion"></textarea>
+<!-- Modal del Formulario de Columna -->
+@if (mostrarFormularioColumna) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <h3>{{ isEditingColumna ? 'Editar Columna' : 'Añadir Nueva Columna' }}</h3>
+      
+      <div class="form-group">
+        <label>Nombre de la Columna:</label>
+        <input type="text" [(ngModel)]="nuevaColumnaNombre" placeholder="Ej: En revisión">
+      </div>
 
-    <label>Estimación (Horas):</label>
-    <input type="number" [(ngModel)]="nuevaTarea.estimacionHoras">
+      <div class="form-group">
+        <label>Color de Fondo (Pastel):</label>
+        <div class="color-picker">
+          @for (color of coloresPastel; track color) {
+            <div class="color-option" 
+                 [style.backgroundColor]="color"
+                 [class.selected]="nuevaColumnaColor === color"
+                 (click)="nuevaColumnaColor = color">
+            </div>
+          }
+        </div>
+      </div>
 
-    <label>Asignar Usuario:</label>
-    <select [(ngModel)]="nuevaTarea.usuarioId">
-      <option value="">-- Seleccionar Usuario --</option>
-      <option *ngFor="let u of usuarios" [value]="u.id">
-        {{u.nombre}} {{u.apellidos}}
-      </option>
-    </select>
 
-    <div class="modal-buttons">
-      <button (click)="guardarTarea()" class="btn-save">Crear Tarea</button>
-      <button (click)="mostrarFormularioTarea = false" class="btn-cancel">Cancelar</button>
+      <div class="modal-buttons">
+        <button (click)="guardarColumna()" class="btn-save">
+          {{ isEditingColumna ? 'Actualizar' : 'Añadir' }}
+        </button>
+        <button (click)="mostrarFormularioColumna = false" class="btn-cancel">Cancelar</button>
+      </div>
     </div>
   </div>
-</div>
+}

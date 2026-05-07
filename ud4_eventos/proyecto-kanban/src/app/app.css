@@ -1,26 +1,61 @@
 .main-nav {
-  background-color: #026aa7; /* Azul clásico de Trello */
-  padding: 10px 20px;
+
+  background: rgba(0, 82, 204, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 8px 10%; /* Margen del 10% a los lados */
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
+  height: 48px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000;
+}
+
+
+.logo {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo::before {
+  content: '▤';
+  font-size: 1.4rem;
+}
+
+.links {
+  display: flex;
+  gap: 8px;
 }
 
 .links a {
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  margin-left: 20px;
-  padding: 5px 10px;
-  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 .links a:hover {
-  background-color: rgba(255,255,255,0.2);
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Estilo para el enlace de la página donde estamos actualmente */
-.active {
-  background-color: rgba(255,255,255,0.3);
-  font-weight: bold;
+.links a.active {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Contenedor del Router Outlet */
+router-outlet + * {
+  display: block;
+  height: calc(100vh - 48px);
+  overflow: hidden;
 }
