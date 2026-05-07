@@ -1,6 +1,7 @@
-/* DISEÑO PREMIUM PARA USER CRUD */
-
 :host {
+  display: block;
+  height: calc(100vh - 48px);
+  overflow-y: auto;
   --primary: #0052cc;
   --secondary: #ebecf0;
   --success: #36b37e;

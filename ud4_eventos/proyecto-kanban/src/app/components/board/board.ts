@@ -19,34 +19,20 @@ export class BoardComponent implements OnInit {
   tableroActivo: Board | null = null;
   usuarios: User[] = [];
 
-  /**
-   * Identificador de la tarea que se está moviendo actualmente.
-   * Requisito: El evento dragEnd "libera" la tarea marcada como "en movimiento".
-   */
+
   idTareaEnMovimiento: number | null = null;
 
-  /** Control del modal de creación de tareas */
   mostrarFormularioTarea: boolean = false;
-  /** Indica si estamos editando una tarea existente */
   isEditingTarea: boolean = false;
-  /** ID de la tarea que se está editando */
   idTareaEdicion: number | null = null;
-  /** Control del modal de creación de tableros */
   mostrarFormularioTablero: boolean = false;
-  /** Control del modal de creación de columnas */
   mostrarFormularioColumna: boolean = false;
-  /** Indica si estamos editando una columna existente */
   isEditingColumna: boolean = false;
-  /** ID de la columna que se está editando */
   idColumnaEdicion: number | null = null;
-  /** Control para mostrar el mensaje de error de límite de columnas */
   mostrarMensajeLimite: boolean = false;
 
-
-  /** Columna donde se insertará la nueva tarea */
   idColumnaDestino: number = 0;
 
-  /** Modelo para la nueva tarea (Databinding) */
   nuevaTarea = {
     titulo: '',
     descripcion: '',
@@ -54,27 +40,24 @@ export class BoardComponent implements OnInit {
     usuarioId: 0
   };
 
-
-  /** Modelo para el nuevo tablero (Databinding) */
   nuevoTablero = {
     nombre: '',
+    descripcion: '',
     color: '#ebecf0'
   };
 
 
-  /** Modelo para la nueva columna (Databinding) */
   nuevaColumnaNombre: string = '';
   nuevaColumnaColor: string = '#ebecf0';
 
-  /** Paleta de colores pastel */
   coloresPastel: string[] = [
-    '#ebecf0', // Gris suave
-    '#ffecb3', // Ambar claro
-    '#c8e6c9', // Verde claro
-    '#bbdefb', // Azul claro
-    '#f8bbd0', // Rosa claro
-    '#e1bee7', // Violeta claro
-    '#ffe0b2'  // Naranja claro
+    '#ebecf0', 
+    '#ffecb3', 
+    '#c8e6c9', 
+    '#bbdefb', 
+    '#f8bbd0', 
+    '#e1bee7', 
+    '#ffe0b2'  
   ];
 
   constructor(private data: Data, private cdr: ChangeDetectorRef) {}
@@ -89,40 +72,35 @@ export class BoardComponent implements OnInit {
     this.usuarios = this.data.getUsers();
   }
 
+  
   /**
-   * Cambia el tablero activo y actualiza la vista.
+   * Establece un tablero como activo para mostrar sus columnas y tareas.
    */
   seleccionarTablero(tablero: Board): void {
     this.data.setActiveBoard(tablero);
     this.tableroActivo = tablero;
   }
 
-  /**
-   * Abre el modal para crear un nuevo tablero.
-   */
+  
   lanzarFormularioTablero() {
     this.mostrarFormularioTablero = true;
   }
 
+ 
   /**
-   * Persiste el nuevo tablero y lo selecciona.
+   * Guarda un nuevo tablero introducido desde el formulario y limpia los datos.
    */
   guardarTablero() {
     if (this.nuevoTablero.nombre && this.nuevoTablero.color) {
-      const nuevo = this.data.addBoard(this.nuevoTablero.nombre, this.nuevoTablero.color);
+      const nuevo = this.data.addBoard(this.nuevoTablero.nombre, this.nuevoTablero.descripcion, this.nuevoTablero.color);
       this.tableros = this.data.getBoards();
       this.seleccionarTablero(nuevo);
       this.mostrarFormularioTablero = false;
-      this.nuevoTablero = { nombre: '', color: '#ebecf0' };
+      this.nuevoTablero = { nombre: '', descripcion: '', color: '#ebecf0' };
     }
   }
 
-
-
-
-  /**
-   * Abre el modal para añadir una nueva columna.
-   */
+  
   lanzarFormularioColumna() {
     if (this.tableroActivo && this.tableroActivo.columnas.length >= 5) {
       this.mostrarMensajeLimite = true;
@@ -137,9 +115,6 @@ export class BoardComponent implements OnInit {
 
 
 
-  /**
-   * Carga los datos de una columna para editarla.
-   */
   prepararEdicionColumna(col: any) {
     this.isEditingColumna = true;
     this.idColumnaEdicion = col.id;
@@ -149,17 +124,11 @@ export class BoardComponent implements OnInit {
   }
 
 
-  /**
-   * Persiste la nueva columna o actualiza una existente.
-   * Requisito: Validación del límite de columnas a 5.
-   */
   guardarColumna() {
     if (this.tableroActivo && this.nuevaColumnaNombre) {
       if (this.isEditingColumna && this.idColumnaEdicion) {
-        // Modo edición
         this.data.updateColumn(this.tableroActivo.id, this.idColumnaEdicion, this.nuevaColumnaNombre, this.nuevaColumnaColor);
       } else {
-        // Modo creación
         const exito = this.data.addColumn(this.tableroActivo.id, this.nuevaColumnaNombre, this.nuevaColumnaColor);
         if (!exito) {
           alert("Límite de 5 columnas alcanzado.");
@@ -172,10 +141,6 @@ export class BoardComponent implements OnInit {
   }
 
 
-
-  /**
-   * Elimina una columna tras confirmar con el usuario.
-   */
   borrarColumna(columnId: number) {
     if (this.tableroActivo && confirm('¿Estás seguro de eliminar esta columna y todas sus tareas?')) {
       this.data.deleteColumn(this.tableroActivo.id, columnId);
@@ -183,9 +148,6 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  /**
-   * Elimina una tarea tras confirmar con el usuario.
-   */
   borrarTarea(taskId: number) {
     if (confirm('¿Estás seguro de eliminar esta tarea?')) {
       this.data.deleteTask(taskId);
@@ -193,31 +155,23 @@ export class BoardComponent implements OnInit {
     }
   }
 
-
   /**
-   * Evento al iniciar el arrastre de una tarea.
-   * Requisito: El evento dragStart está correctamente asociado a cada tarea.
+   * Inicia el proceso de Drag & Drop guardando el ID de la tarea.
    */
   onDragStart(event: DragEvent, taskId: number){
     this.idTareaEnMovimiento = taskId;
     event.dataTransfer?.setData("text/plain", taskId.toString());
-    // Efecto visual opcional en el dataTransfer
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = "move";
     }
   }
 
-  /**
-   * Evento cuando una tarea se arrastra sobre una columna.
-   * Requisito: El evento dragOver está correctamente asociado (preventDefault).
-   */
   onDragOver(event: DragEvent){
-    event.preventDefault(); // Permitir el drop
+    event.preventDefault(); 
   }
 
   /**
-   * Evento al soltar una tarea en una columna destino.
-   * Requisito: El evento drop está correctamente asociado a cada columna destino.
+   * Evento que se ejecuta al soltar una tarea sobre una columna. Extrae la tarea origen y la inserta.
    */
   onDrop(event: DragEvent, columnId: number){
     event.preventDefault();
@@ -226,7 +180,6 @@ export class BoardComponent implements OnInit {
     if(this.tableroActivo && taskId){
       let tareaEncontrada: Task | null = null;
 
-      // Buscar y extraer la tarea de su columna original
       this.tableroActivo.columnas.forEach(col => {
         const index = col.tareas.findIndex(t => t.id === Number(taskId));
         if(index !== -1) {
@@ -234,28 +187,19 @@ export class BoardComponent implements OnInit {
         }
       });
 
-      // Insertar la tarea en la nueva columna
       if(tareaEncontrada){
         const destino = this.tableroActivo.columnas.find(c => c.id === columnId);
         destino?.tareas.push(tareaEncontrada);
       }
     }
-    this.idTareaEnMovimiento = null; // Limpiar estado para evitar que se quede en gris
+    this.idTareaEnMovimiento = null;
   }
 
 
-  /**
-   * Evento al finalizar el arrastre (haya tenido éxito o no).
-   * Requisito: El evento dragEnd "libera" la tarea marcada como "en movimiento".
-   */
   onDragEnd() {
     this.idTareaEnMovimiento = null;
   }
 
-  /**
-   * Abre el modal para crear una nueva tarea.
-   * Requisito: Por defecto se crean en la primera columna ("Por hacer").
-   */
   lanzarFormularioTarea(columnaId?: number){
     this.isEditingTarea = false;
     this.idTareaEdicion = null;
@@ -270,9 +214,6 @@ export class BoardComponent implements OnInit {
     this.usuarios = this.data.getUsers();
   }
 
-  /**
-   * Carga los datos de una tarea para editarla.
-   */
   prepararEdicionTarea(task: Task) {
     this.isEditingTarea = true;
     this.idTareaEdicion = task.id;
@@ -285,26 +226,25 @@ export class BoardComponent implements OnInit {
     this.mostrarFormularioTarea = true;
   }
 
+ 
   /**
-   * Persiste la tarea (creación o edición) en el servicio.
+   * Registra una nueva tarea o guarda los cambios si se está editando una existente.
    */
   guardarTarea(){
     if(this.nuevaTarea.titulo && this.nuevaTarea.descripcion){
       const usuarioAsignado = this.usuarios.find(u => u.id === Number(this.nuevaTarea.usuarioId)) || null;
       
       if (this.isEditingTarea && this.idTareaEdicion) {
-        // Modo edición
         const tareaEditada = new Task(
           this.idTareaEdicion,
           this.nuevaTarea.titulo,
           this.nuevaTarea.descripcion,
           this.nuevaTarea.estimacionHoras,
           usuarioAsignado,
-          '' // El ID de columna no cambia aquí
+          '' 
         );
         this.data.updateTask(tareaEditada);
       } else {
-        // Modo creación
         const tareaFinal = new Task(
           Date.now(),
           this.nuevaTarea.titulo,
@@ -329,11 +269,5 @@ export class BoardComponent implements OnInit {
       usuarioId: 0
     };
   }
-
-
-
-
-
-
 
 }

@@ -5,7 +5,7 @@
   </header>
 
   <section class="form-section">
-    <form (ngSubmit)="gestionarEnvio()" #userForm="ngForm" class="user-form">
+    <form (submit)="gestionarEnvio($event)" #userForm="ngForm" class="user-form">
       <div class="form-grid">
         <div class="form-group">
           <label>ID Usuario</label>

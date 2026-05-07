@@ -5,6 +5,7 @@ export class Board {
     constructor(
         public id: number,
         public nombre: string,
+        public descripcion: string,
         public fondo: string,
 
         public columnas: Column[] = [

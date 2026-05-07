@@ -1,8 +1,3 @@
-/* 
-  DISEÑO PREMIUM KANBAN 
-  Inspirado en Trello Moderno + Glassmorphism
-*/
-
 :host {
   --primary: #0052cc;
   --primary-hover: #0747a6;
@@ -25,7 +20,6 @@
   color: var(--text-main);
 }
 
-/* Layout Principal */
 .layout-container {
   display: flex;
   height: calc(100vh - 48px);
@@ -35,7 +29,6 @@
 }
 
 
-/* Barra Lateral (Índice) */
 .board-sidebar {
   width: 240px;
   background: var(--sidebar-bg);
@@ -104,7 +97,6 @@
   background: white;
 }
 
-/* Contenido Principal */
 .board-main {
   flex-grow: 1;
   position: relative;
@@ -120,7 +112,6 @@
   flex-direction: column;
 }
 
-/* Cabecera del Tablero */
 .header-board {
   padding: 12px 20px;
   background: rgba(255, 255, 255, 0.15);
@@ -145,7 +136,6 @@
   gap: 12px;
 }
 
-/* Botones */
 .btn-primary, .btn-secondary, .btn-save {
   padding: 8px 16px;
   border-radius: var(--radius-sm);
@@ -240,7 +230,6 @@
   color: var(--text-subtle);
 }
 
-/* Tareas */
 .task-list {
   padding: 0 12px 12px 12px;
   overflow-y: auto;
@@ -359,7 +348,6 @@
   color: var(--text-main);
 }
 
-/* Modales */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -424,7 +412,6 @@
 .btn-save { background: var(--primary); color: white; }
 .btn-cancel { background: transparent; color: var(--text-subtle); border: none; cursor: pointer; font-weight: 600; }
 
-/* Color Picker */
 .color-picker {
   display: flex;
   gap: 8px;
@@ -444,7 +431,6 @@
 .color-option:hover { transform: scale(1.1); }
 .color-option.selected { transform: scale(1.1); box-shadow: 0 0 0 2px var(--primary); }
 
-/* Avisos */
 .limit-warning {
   position: absolute;
   top: 80px;
@@ -470,7 +456,6 @@
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* Scrollbars Personalizados */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(9, 30, 66, 0.13); border-radius: 10px; }

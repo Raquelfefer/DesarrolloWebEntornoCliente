@@ -1,7 +1,5 @@
-<!-- Estructura de la web: Cabecera, Índice y Contenido (Requisito 4.5 pts) -->
 <div class="layout-container">
   
-  <!-- ÍNDICE: Barra lateral para navegación entre tableros -->
   <aside class="board-sidebar">
     <h3>Tableros</h3>
     <ul class="sidebar-list">
@@ -14,27 +12,27 @@
     <button (click)="lanzarFormularioTablero()" class="btn-sidebar">+ Nuevo Tablero</button>
   </aside>
 
-  <!-- CONTENIDO: Área principal del tablero -->
   <main class="board-main">
     @if (tableroActivo) {
       <div class="board-canvas" [style.background]="tableroActivo.fondo.startsWith('http') ? 'url(' + tableroActivo.fondo + ') center/cover' : tableroActivo.fondo">
 
-        
-        <!-- CABECERA: Título y acciones rápidas -->
         <header class="header-board">
-          <h1>{{tableroActivo.nombre}}</h1>
+          <div>
+            <h1>{{tableroActivo.nombre}}</h1>
+            @if (tableroActivo.descripcion) {
+              <p style="margin-top: 5px; opacity: 0.8;">{{tableroActivo.descripcion}}</p>
+            }
+          </div>
           <div class="board-actions">
             <button (click)="lanzarFormularioTarea()" class="btn-primary">Nueva Tarea</button>
             <button (click)="lanzarFormularioColumna()" class="btn-secondary">Añadir Columna</button>
           </div>
         </header>
         @if (mostrarMensajeLimite) {
-          <div class="limit-warning animated-fade">⚠️ No puedes crear más de 5 columnas. Debes borrar una antes.</div>
+          <div class="limit-warning animated-fade"> No puedes crear más de 5 columnas. Debes borrar una antes.</div>
         }
 
 
-
-        <!-- Contenedor de Columnas -->
         <div class="columns-container">
           @for (col of tableroActivo.columnas; track col.id) {
             <div class="column" 
@@ -57,7 +55,6 @@
 
               <hr>
 
-              <!-- Lista de Tareas -->
               <div class="task-list">
                 @for (task of col.tareas; track task.id) {
                   <div class="task-card" 
@@ -99,7 +96,6 @@
   </main>
 </div>
 
-<!-- Modal del Formulario de Tarea (Requisito: Tareas por defecto en 'Por hacer') -->
 @if (mostrarFormularioTarea) {
   <div class="modal-overlay">
     <div class="modal-content">
@@ -142,7 +138,6 @@
   </div>
 }
 
-<!-- Modal del Formulario de Tablero -->
 @if (mostrarFormularioTablero) {
   <div class="modal-overlay">
     <div class="modal-content">
@@ -151,6 +146,11 @@
       <div class="form-group">
         <label>Nombre del Tablero:</label>
         <input type="text" [(ngModel)]="nuevoTablero.nombre" placeholder="Ej: Proyecto Final">
+      </div>
+
+      <div class="form-group">
+        <label>Descripción:</label>
+        <textarea [(ngModel)]="nuevoTablero.descripcion" placeholder="Ej: Tablero para gestionar las tareas del proyecto final"></textarea>
       </div>
 
       <div class="form-group">
@@ -174,8 +174,6 @@
   </div>
 }
 
-
-<!-- Modal del Formulario de Columna -->
 @if (mostrarFormularioColumna) {
   <div class="modal-overlay">
     <div class="modal-content">

@@ -7,8 +7,8 @@ export class Task {
         public titulo: string,
         public descripcion: string,
         public estimacionHoras: number,
-        public usuario: User | null, //Puede que no tenga asignado usuario al principio
-        public columnaId: string //Saber en que columna esta
+        public usuario: User | null, 
+        public columnaId: string 
     ){}
 
 }

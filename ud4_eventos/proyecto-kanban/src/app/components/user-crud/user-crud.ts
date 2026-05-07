@@ -15,10 +15,7 @@ export class UserCrud implements OnInit {
   usuarios: User[] = [];
   isEditing: boolean = false;
 
-  /**
-   * Modelo para el formulario (Databinding bidireccional)
-   * Requisito: El control (databinding) de los datos se encuentra en los componentes (TS)
-   */
+  
   usuarioActual: User = new User(0, '', '', '');
 
   constructor(private dataService: Data) {}
@@ -27,17 +24,19 @@ export class UserCrud implements OnInit {
     this.usuarios = this.dataService.getUsers();
   }
 
+  
   /**
-   * Gestiona el registro o actualización de un usuario.
-   * Requisito: El email del usuario será un campo único (sin duplicidades).
+   * Crea o actualiza un usuario en función del estado del componente.
    */
-  gestionarEnvio() {
+  gestionarEnvio(event?: Event) {
+    if (event) {
+      event.preventDefault(); // Prevenimos el comportamiento por defecto del formulario
+    }
+
     if (this.isEditing) {
       this.dataService.updateUser(this.usuarioActual);
       this.isEditing = false;
     } else {
-      // Validar duplicidad antes de añadir
-      // Requisito: Lógica de negocio en servicios (adduser ya lo comprueba, pero aquí damos feedback)
       const exito = this.dataService.adduser(
         new User(
           this.usuarioActual.id,
@@ -56,8 +55,9 @@ export class UserCrud implements OnInit {
     this.resetFormulario();
   }
 
+  
   /**
-   * Elimina un usuario del sistema.
+   * Elimina un usuario solicitando confirmación previa.
    */
   borrarUsuario(id: number): void {
     if (confirm('¿Estás seguro de eliminar este usuario?')) {
@@ -66,12 +66,9 @@ export class UserCrud implements OnInit {
     }
   }
 
-  /**
-   * Carga los datos del usuario seleccionado en el formulario para editar.
-   */
+  
   prepararEdicion(u: User) {
     this.isEditing = true;
-    // Creamos una copia para no modificar la lista directamente hasta guardar
     this.usuarioActual = { ...u };
   }
 
